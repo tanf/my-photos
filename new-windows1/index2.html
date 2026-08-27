@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>雨云 - 新一代云服务提供商 | 润雨无声，云润万物</title>
+<meta name="description" content="欢迎来到以用户体验为优先的雨云，我们提供稳定高速的云服务器、游戏云、虚拟主机、CDN、对象存储等云服务产品，强大的功能，高效率的客户支持，简洁易用的面板，值得您的信赖">
+<meta name="keywords" content="雨云,云服务器,虚拟主机,游戏云,CDN,对象存储,域名,VPS,服务器,linmeng">
+<style>
+/* ========== Reset & Base ========== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#2563eb;
+  --primary-dark:#1d4ed8;
+  --primary-light:#3b82f6;
+  --cyan:#06b6d4;
+  --cyan-light:#22d3ee;
+  --amber:#f59e0b;
+  --amber-dark:#d97706;
+  --rose:#f43f5e;
+  --emerald:#10b981;
+  --violet:#8b5cf6;
+  --ink:#0f172a;
+  --ink-2:#1e293b;
+  --slate:#475569;
+  --slate-light:#64748b;
+  --line:#e2e8f0;
+  --bg:#f8fafc;
+  --bg-2:#f1f5f9;
+  --card:#ffffff;
+  --shadow-sm:0 1px 2px rgba(15,23,42,.06);
+  --shadow:0 4px 16px rgba(15,23,42,.08);
+  --shadow-lg:0 12px 32px rgba(15,23,42,.12);
+  --shadow-xl:0 24px 60px rgba(15,23,42,.16);
+  --radius:14px;
+  --radius-lg:22px;
+  --maxw:1200px;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.7;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none;transition:color .2s}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ========== Animated Background ========== */
+.bg-aurora{
+  position:fixed;inset:0;z-index:-2;overflow:hidden;
+  background:linear-gradient(180deg,#eff6ff 0%,#f8fafc 30%,#f8fafc 100%);
+}
+.bg-aurora::before,.bg-aurora::after{
+  content:"";position:absolute;border-radius:50%;filter:blur(80px);opacity:.45;
+}
+.bg-aurora::before{
+  width:520px;height:520px;background:radial-gradient(circle,#60a5fa,transparent 70%);
+  top:-120px;right:-80px;animation:float1 16s ease-in-out infinite;
+}
+.bg-aurora::after{
+  width:600px;height:600px;background:radial-gradient(circle,#22d3ee,transparent 70%);
+  bottom:-160px;left:-120px;animation:float2 20s ease-in-out infinite;
+}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,60px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-40px)}}
+
+/* ========== Navbar ========== */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.75);
+  backdrop-filter:saturate(180%) blur(14px);
+  -webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid rgba(226,232,240,.7);
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  height:68px;
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:.5px}
+.brand-logo{
+  width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,var(--primary),var(--cyan));
+  display:grid;place-items:center;color:#fff;font-size:20px;
+  box-shadow:0 6px 14px rgba(37,99,235,.35);
+}
+.brand-text{background:linear-gradient(135deg,var(--primary),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a{
+  padding:8px 14px;border-radius:10px;font-size:15px;color:var(--slate);font-weight:500;
+}
+.nav-links a:hover{color:var(--primary);background:rgba(37,99,235,.08)}
+.nav-cta{
+  display:flex;align-items:center;gap:10px;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 20px;border-radius:12px;font-weight:600;font-size:15px;
+  transition:transform .15s,box-shadow .2s,background .2s;
+  white-space:nowrap;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--primary),var(--cyan));
+  color:#fff;box-shadow:0 8px 20px rgba(37,99,235,.3);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(37,99,235,.4)}
+.btn-ghost{background:rgba(37,99,235,.08);color:var(--primary)}
+.btn-ghost:hover{background:rgba(37,99,235,.16)}
+.btn-amber{
+  background:linear-gradient(135deg,var(--amber),#fb923c);color:#fff;
+  box-shadow:0 8px 20px rgba(245,158,11,.35);
+}
+.btn-amber:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(245,158,11,.45)}
+.btn-lg{padding:14px 30px;font-size:16px}
+.btn-white{background:#fff;color:var(--primary);box-shadow:var(--shadow)}
+.btn-white:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.menu-toggle{display:none;font-size:24px;color:var(--ink);background:none;padding:6px}
+
+/* ========== Hero ========== */
+.hero{
+  position:relative;padding:80px 0 60px;overflow:hidden;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 14px;border-radius:999px;font-size:13px;font-weight:600;
+  background:rgba(37,99,235,.1);color:var(--primary);
+  border:1px solid rgba(37,99,235,.2);
+  margin-bottom:22px;
+}
+.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--emerald);box-shadow:0 0 0 4px rgba(16,185,129,.2);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.hero h1{
+  font-size:clamp(34px,5vw,56px);line-height:1.15;font-weight:800;
+  letter-spacing:-1px;margin-bottom:18px;
+}
+.hero h1 .grad{background:linear-gradient(135deg,var(--primary),var(--cyan) 60%,var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:18px;color:var(--slate);margin-bottom:30px;max-width:560px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:34px}
+.hero-stats{display:flex;gap:34px;flex-wrap:wrap}
+.hero-stat .num{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.5px}
+.hero-stat .num .unit{font-size:18px;color:var(--slate);font-weight:600;margin-left:2px}
+.hero-stat .label{font-size:13px;color:var(--slate-light);margin-top:2px}
+.hero-visual{
+  position:relative;
+}
+.hero-card{
+  background:linear-gradient(135deg,#fff,#f8fafc);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  padding:24px;box-shadow:var(--shadow-xl);
+  transform:rotate(-2deg);transition:transform .4s;
+}
+.hero-card:hover{transform:rotate(0deg)}
+.hero-card .terminal{
+  background:var(--ink);border-radius:12px;padding:16px 18px;color:#e2e8f0;
+  font-family:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;font-size:13px;line-height:1.9;
+}
+.terminal-head{display:flex;gap:6px;margin-bottom:12px}
+.terminal-head span{width:11px;height:11px;border-radius:50%}
+.terminal-head .r{background:#ff5f56}.terminal-head .y{background:#ffbd2e}.terminal-head .g{background:#27c93f}
+.terminal .prompt{color:#22d3ee}
+.terminal .ok{color:#34d399}
+.terminal .cmt{color:#64748b}
+.hero-float{
+  position:absolute;background:#fff;border:1px solid var(--line);
+  border-radius:14px;padding:12px 16px;box-shadow:var(--shadow-lg);
+  display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;
+}
+.hero-float.f1{top:-18px;right:8px;animation:bob 4s ease-in-out infinite}
+.hero-float.f2{bottom:-20px;left:-12px;animation:bob 5s ease-in-out infinite .8s}
+.hero-float .ico{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:#fff;font-size:16px}
+.hero-float.f1 .ico{background:linear-gradient(135deg,var(--emerald),#34d399)}
+.hero-float.f2 .ico{background:linear-gradient(135deg,var(--amber),#fb923c)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ========== Section ========== */
+.section{padding:72px 0}
+.section-head{text-align:center;max-width:720px;margin:0 auto 48px}
+.section-tag{
+  display:inline-block;padding:5px 14px;border-radius:999px;font-size:13px;font-weight:600;
+  background:rgba(37,99,235,.1);color:var(--primary);margin-bottom:14px;letter-spacing:.3px;
+}
+.section h2{font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-.5px;margin-bottom:14px}
+.section-head p{font-size:16px;color:var(--slate)}
+
+/* ========== Products ========== */
+.products-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+}
+.product-card{
+  position:relative;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius-lg);padding:30px;overflow:hidden;
+  transition:transform .25s,box-shadow .25s,border-color .25s;
+}
+.product-card::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(37,99,235,.06),rgba(6,182,212,.06));
+  opacity:0;transition:opacity .25s;
+}
+.product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-xl);border-color:transparent}
+.product-card:hover::before{opacity:1}
+.product-card > *{position:relative;z-index:1}
+.product-icon{
+  width:54px;height:54px;border-radius:14px;display:grid;place-items:center;
+  font-size:26px;color:#fff;margin-bottom:18px;
+  box-shadow:var(--shadow);
+}
+.pc-1{background:linear-gradient(135deg,#2563eb,#3b82f6)}
+.pc-2{background:linear-gradient(135deg,#8b5cf6,#a78bfa)}
+.pc-3{background:linear-gradient(135deg,#10b981,#34d399)}
+.pc-4{background:linear-gradient(135deg,#f59e0b,#fb923c)}
+.pc-5{background:linear-gradient(135deg,#06b6d4,#22d3ee)}
+.pc-6{background:linear-gradient(135deg,#f43f5e,#fb7185)}
+.product-card h3{font-size:22px;font-weight:700;margin-bottom:8px}
+.product-card .desc{font-size:14px;color:var(--slate);margin-bottom:18px;min-height:44px}
+.product-price{display:flex;align-items:baseline;gap:6px;margin-bottom:20px}
+.product-price .cur{font-size:14px;color:var(--slate);font-weight:600}
+.product-price .num{font-size:34px;font-weight:800;color:var(--amber-dark);letter-spacing:-1px}
+.product-price .unit{font-size:14px;color:var(--slate-light)}
+.product-features{list-style:none;margin-bottom:22px;display:grid;gap:8px}
+.product-features li{font-size:14px;color:var(--slate);display:flex;align-items:center;gap:8px}
+.product-features li::before{content:"✓";color:var(--emerald);font-weight:800}
+.product-btn{
+  display:block;text-align:center;padding:12px;border-radius:12px;
+  background:linear-gradient(135deg,var(--primary),var(--cyan));color:#fff;font-weight:600;
+  transition:filter .2s,transform .15s;
+}
+.product-btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+
+/* ========== About ========== */
+.about{background:linear-gradient(180deg,#fff,#f8fafc);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.about-text h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;margin-bottom:18px;letter-spacing:-.5px}
+.about-text p{color:var(--slate);margin-bottom:16px;font-size:16px}
+.about-text .hi{color:var(--primary);font-weight:700}
+.about-quote{
+  margin-top:24px;padding:18px 22px;border-left:4px solid var(--primary);
+  background:rgba(37,99,235,.05);border-radius:0 12px 12px 0;font-style:italic;color:var(--ink-2);
+}
+.about-quote b{color:var(--primary);font-style:normal}
+.about-visual{position:relative}
+.about-visual img{
+  width:100%;border-radius:var(--radius-lg);box-shadow:var(--shadow-xl);
+  border:6px solid #fff;
+}
+.about-visual .deco{
+  position:absolute;inset:-12px -12px auto auto;width:120px;height:120px;
+  background:linear-gradient(135deg,var(--cyan),var(--primary));border-radius:24px;
+  z-index:-1;opacity:.18;
+}
+
+/* ========== Features / Why ========== */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.feature{
+  padding:28px;border-radius:var(--radius-lg);background:var(--card);
+  border:1px solid var(--line);transition:transform .25s,box-shadow .25s;
+}
+.feature:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.feature-ico{
+  width:48px;height:48px;border-radius:12px;display:grid;place-items:center;
+  font-size:22px;margin-bottom:16px;
+  background:linear-gradient(135deg,rgba(37,99,235,.12),rgba(6,182,212,.12));color:var(--primary);
+}
+.feature h3{font-size:19px;font-weight:700;margin-bottom:10px}
+.feature p{font-size:14.5px;color:var(--slate)}
+
+/* ========== Gallery ========== */
+.gallery{background:linear-gradient(180deg,#f8fafc,#fff)}
+.gallery-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
+}
+.gallery-item{
+  position:relative;border-radius:var(--radius-lg);overflow:hidden;
+  cursor:pointer;box-shadow:var(--shadow);
+  aspect-ratio:4/3;background:var(--bg-2);
+}
+.gallery-item:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+.gallery-item img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .5s ease;
+}
+.gallery-item:hover img{transform:scale(1.06)}
+.gallery-item::after{
+  content:"🔍";position:absolute;inset:0;display:grid;place-items:center;
+  background:rgba(15,23,42,.5);color:#fff;font-size:28px;
+  opacity:0;transition:opacity .25s;
+}
+.gallery-item:hover::after{opacity:1}
+.gallery-tag{
+  position:absolute;top:12px;left:12px;z-index:2;
+  padding:4px 10px;border-radius:999px;font-size:12px;font-weight:600;
+  background:rgba(255,255,255,.9);color:var(--ink);backdrop-filter:blur(6px);
+}
+
+/* ========== Stats Band ========== */
+.stats-band{
+  background:linear-gradient(135deg,var(--primary) 0%,var(--cyan) 100%);
+  color:#fff;border-radius:var(--radius-lg);padding:48px 32px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+  box-shadow:var(--shadow-xl);position:relative;overflow:hidden;
+}
+.stats-band::before{
+  content:"";position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Ccircle cx='20' cy='20' r='3'/%3E%3Ccircle cx='60' cy='60' r='3'/%3E%3C/g%3E%3C/svg%3E");
+}
+.stats-band > *{position:relative;z-index:1}
+.stat-item{text-align:center}
+.stat-item .v{font-size:42px;font-weight:800;letter-spacing:-1px;line-height:1}
+.stat-item .v .plus{font-size:24px;opacity:.8}
+.stat-item .l{font-size:14px;opacity:.9;margin-top:8px;font-weight:500}
+
+/* ========== Testimonials ========== */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.testi{
+  padding:28px;border-radius:var(--radius-lg);background:var(--card);
+  border:1px solid var(--line);box-shadow:var(--shadow-sm);
+}
+.testi-stars{color:var(--amber);font-size:16px;margin-bottom:14px;letter-spacing:2px}
+.testi p{color:var(--slate);font-size:15px;margin-bottom:18px;font-style:italic}
+.testi-user{display:flex;align-items:center;gap:12px}
+.testi-avatar{
+  width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+  color:#fff;font-weight:700;font-size:15px;
+}
+.testi-name{font-weight:700;font-size:14px}
+.testi-role{font-size:12px;color:var(--slate-light)}
+
+/* ========== FAQ ========== */
+.faq-wrap{max-width:820px;margin:0 auto;display:grid;gap:14px}
+.faq{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;transition:box-shadow .2s;
+}
+.faq[open]{box-shadow:var(--shadow)}
+.faq summary{
+  list-style:none;cursor:pointer;padding:20px 24px;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  font-weight:700;font-size:16.5px;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .ic{
+  width:26px;height:26px;flex-shrink:0;border-radius:50%;
+  background:rgba(37,99,235,.1);color:var(--primary);
+  display:grid;place-items:center;font-size:16px;transition:transform .25s;
+}
+.faq[open] summary .ic{transform:rotate(45deg);background:var(--primary);color:#fff}
+.faq-body{padding:0 24px 22px;color:var(--slate);font-size:15px;line-height:1.8}
+
+/* ========== CTA ========== */
+.cta{
+  position:relative;border-radius:var(--radius-lg);overflow:hidden;
+  padding:64px 32px;text-align:center;color:#fff;
+  background:linear-gradient(135deg,var(--primary) 0%,var(--cyan) 55%,var(--violet) 100%);
+  box-shadow:var(--shadow-xl);
+}
+.cta::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.18),transparent 50%),
+             radial-gradient(circle at 80% 70%,rgba(255,255,255,.12),transparent 50%);
+}
+.cta > *{position:relative;z-index:1}
+.cta h2{font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:14px;letter-spacing:-.5px}
+.cta p{font-size:17px;opacity:.95;margin-bottom:14px;max-width:640px;margin-left:auto;margin-right:auto}
+.cta .coupon{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.18);border:1px dashed rgba(255,255,255,.6);
+  padding:8px 18px;border-radius:999px;font-size:14px;font-weight:600;margin-bottom:26px;
+}
+.cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cta-progress{max-width:480px;margin:22px auto 0}
+.cta-progress .bar{height:8px;background:rgba(255,255,255,.25);border-radius:999px;overflow:hidden}
+.cta-progress .fill{height:100%;width:73%;background:linear-gradient(90deg,#fff,#fde68a);border-radius:999px}
+.cta-progress .meta{display:flex;justify-content:space-between;font-size:13px;opacity:.9;margin-top:8px}
+
+/* ========== AFF Notice ========== */
+.aff-notice{
+  margin-top:48px;padding:24px 28px;border-radius:var(--radius);
+  background:rgba(37,99,235,.04);border:1px solid rgba(37,99,235,.15);
+  display:flex;gap:16px;align-items:flex-start;
+}
+.aff-notice .ico{
+  width:40px;height:40px;border-radius:10px;flex-shrink:0;
+  background:rgba(37,99,235,.12);color:var(--primary);
+  display:grid;place-items:center;font-size:20px;
+}
+.aff-notice p{color:var(--slate);font-size:14.5px;line-height:1.8}
+.aff-notice a{color:var(--primary);font-weight:700;border-bottom:1px dashed var(--primary)}
+
+/* ========== Footer ========== */
+footer{
+  background:var(--ink);color:#cbd5e1;padding:56px 0 28px;margin-top:72px;
+}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;margin-bottom:36px}
+.footer-brand .brand{color:#fff;margin-bottom:14px}
+.footer-brand p{font-size:14px;color:#94a3b8;line-height:1.7;margin-bottom:16px}
+.footer-social{display:flex;gap:10px}
+.footer-social a{
+  width:38px;height:38px;border-radius:10px;display:grid;place-items:center;
+  background:rgba(255,255,255,.06);font-size:16px;transition:background .2s,transform .2s;
+}
+.footer-social a:hover{background:var(--primary);transform:translateY(-2px)}
+.footer-col h4{color:#fff;font-size:15px;margin-bottom:16px;font-weight:700}
+.footer-col ul{list-style:none;display:grid;gap:10px}
+.footer-col a{font-size:14px;color:#94a3b8}
+.footer-col a:hover{color:#fff}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.08);padding-top:22px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  font-size:13px;color:#64748b;
+}
+
+/* ========== Lightbox ========== */
+.lightbox{
+  position:fixed;inset:0;z-index:1000;background:rgba(15,23,42,.92);
+  display:none;align-items:center;justify-content:center;padding:32px;
+  backdrop-filter:blur(6px);
+}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92%;max-height:88vh;border-radius:12px;box-shadow:0 24px 80px rgba(0,0,0,.6)}
+.lightbox-close{
+  position:absolute;top:24px;right:32px;color:#fff;font-size:38px;
+  background:none;cursor:pointer;line-height:1;opacity:.8;
+}
+.lightbox-close:hover{opacity:1}
+
+/* ========== Back to top ========== */
+.to-top{
+  position:fixed;right:24px;bottom:24px;width:48px;height:48px;border-radius:14px;
+  background:linear-gradient(135deg,var(--primary),var(--cyan));color:#fff;
+  display:grid;place-items:center;font-size:20px;box-shadow:var(--shadow-lg);
+  opacity:0;visibility:hidden;transition:opacity .25s,transform .25s;z-index:90;
+}
+.to-top.show{opacity:1;visibility:visible}
+.to-top:hover{transform:translateY(-3px)}
+
+/* ========== Reveal animation ========== */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ========== Responsive ========== */
+@media(max-width:980px){
+  .nav-links,.nav-cta .btn-ghost{display:none}
+  .menu-toggle{display:block}
+  .nav-links.open{
+    display:flex;position:absolute;top:68px;left:0;right:0;
+    flex-direction:column;background:#fff;padding:16px 24px;gap:4px;
+    border-bottom:1px solid var(--line);box-shadow:var(--shadow-lg);
+  }
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .hero-visual{order:-1;max-width:440px}
+  .about-grid{grid-template-columns:1fr;gap:36px}
+  .products-grid,.features-grid,.testi-grid{grid-template-columns:repeat(2,1fr)}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .gallery-item:first-child{grid-column:span 2;grid-row:span 1;aspect-ratio:16/9}
+  .stats-band{grid-template-columns:repeat(2,1fr);gap:28px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:560px){
+  .container{padding:0 16px}
+  .section{padding:52px 0}
+  .hero{padding:48px 0 40px}
+  .hero-stats{gap:20px}
+  .hero-stat .num{font-size:24px}
+  .products-grid,.features-grid,.testi-grid,.gallery-grid{grid-template-columns:1fr}
+  .gallery-item:first-child{grid-column:span 1}
+  .stats-band{grid-template-columns:1fr 1fr;padding:36px 20px}
+  .stat-item .v{font-size:32px}
+  .footer-grid{grid-template-columns:1fr}
+  .cta{padding:44px 20px}
+}
+</style>
+</head>
+<body>
+<div class="bg-aurora"></div>
+
+<!-- ========== Navbar ========== -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand">
+      <span class="brand-logo">🌤️</span>
+      <span class="brand-text">雨云 RainYun</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#products">产品服务</a>
+      <a href="#about">关于雨云</a>
+      <a href="#why">产品优势</a>
+      <a href="#gallery">界面展示</a>
+      <a href="#faq">常见问题</a>
+      <a href="https://www.rainyun.com/jk/linmeng_" target="_self">库存监控</a>
+    </div>
+    <div class="nav-cta">
+      <a href="https://app.rainyun.com/dashboard/linmeng_" target="_self" class="btn btn-ghost">登录</a>
+      <a href="https://app.rainyun.com/linmeng_" target="_self" class="btn btn-primary">注册 / 领5折券</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== Hero ========== -->
+<header class="hero" id="top">
+  <div class="container hero-grid">
+    <div class="hero-text reveal">
+      <span class="hero-badge"><span class="dot"></span> 优惠通道已激活 · AFF: linmeng_</span>
+      <h1>🌤️ 欢迎来到 <span class="grad">雨云</span><br>新一代云服务提供商</h1>
+      <p class="lead">以用户体验为优先，提供稳定高速的云服务器、虚拟主机、游戏云、CDN、对象存储等产品。强大的功能、高效的支持、简洁易用的面板，值得您的信赖。</p>
+      <div class="hero-actions">
+        <a href="https://www.rainyun.com/linmeng_" target="_self" class="btn btn-primary btn-lg">🏠 进入首页</a>
+        <a href="https://app.rainyun.com/dashboard/linmeng_" target="_self" class="btn btn-amber btn-lg">🔑 登录 / 注册</a>
+        <a href="https://www.rainyun.com/jk/linmeng_" target="_self" class="btn btn-white btn-lg">📊 库存监控</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">7<span class="unit">年</span></div><div class="label">运营经验</div></div>
+        <div class="hero-stat"><div class="num">99.9<span class="unit">%</span></div><div class="label">在线率</div></div>
+        <div class="hero-stat"><div class="num">10<span class="unit">万+</span></div><div class="label">服务客户</div></div>
+        <div class="hero-stat"><div class="num">7×24<span class="unit">h</span></div><div class="label">技术支持</div></div>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="hero-card">
+        <div class="terminal">
+          <div class="terminal-head"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+          <div><span class="prompt">$</span> ssh root@rainyun</div>
+          <div><span class="cmt"># 一键部署，秒级上线</span></div>
+          <div><span class="prompt">$</span> rainyun deploy --app web</div>
+          <div><span class="ok">✓</span> 实例创建成功 (2.3s)</div>
+          <div><span class="ok">✓</span> 网络配置完成 (0.8s)</div>
+          <div><span class="ok">✓</span> SSL 证书已签发</div>
+          <div><span class="ok">✓</span> 服务已上线 🚀</div>
+          <div><span class="prompt">$</span> <span style="background:#22d3ee;width:8px;height:16px;display:inline-block;animation:pulse 1s infinite"></span></div>
+        </div>
+      </div>
+      <div class="hero-float f1"><span class="ico">⚡</span> 弹性扩容</div>
+      <div class="hero-float f2"><span class="ico">🛡️</span> DDoS 防护</div>
+    </div>
+  </div>
+</header>
+
+<!-- ========== Products ========== -->
+<section class="section" id="products">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-tag">🛒 产品服务</span>
+      <h2>全栈云产品，一站满足</h2>
+      <p>从入门到企业级，覆盖计算、存储、网络、安全全场景，按需付费、弹性伸缩</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card reveal">
+        <div class="product-icon pc-1">🎫</div>
+        <h3>虚拟主机</h3>
+        <p class="desc">一键部署网站，宝塔/EP面板，免费SSL，适合个人博客与企业官网</p>
+        <div class="product-price"><span class="cur">¥</span><span class="num">8</span><span class="unit">/月起</span></div>
+        <ul class="product-features">
+          <li>NVMe 高速存储</li>
+          <li>免费 SSL 证书</li>
+          <li>宝塔面板一键管理</li>
+          <li>每日自动备份</li>
+        </ul>
+        <a href="https://app.rainyun.com/apps/rvh/buy/linmeng_" target="_self" class="product-btn">立即体验</a>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-icon pc-2">🖥️</div>
+        <h3>云服务器</h3>
+        <p class="desc">KVM 虚拟化，独享资源，多地域可选，企业级稳定与性能</p>
+        <div class="product-price"><span class="cur">¥</span><span class="num">15</span><span class="unit">/月起</span></div>
+        <ul class="product-features">
+          <li>KVM 全虚拟化</li>
+          <li>多地域 BGP 网络</li>
+          <li>支持快照与镜像</li>
+          <li>弹性升级配置</li>
+        </ul>
+        <a href="https://app.rainyun.com/apps/rcs/buy/linmeng_" target="_self" class="product-btn">立即体验</a>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-icon pc-3">🎮</div>
+        <h3>游戏云</h3>
+        <p class="desc">我的世界/Minecraft 专属优化，一键开服，模板丰富，低延迟</p>
+        <div class="product-price"><span class="cur">¥</span><span class="num">25</span><span class="unit">/月起</span></div>
+        <ul class="product-features">
+          <li>MC 一键开服</li>
+          <li>高主频 CPU 优化</li>
+          <li>海量模组模板</li>
+          <li>7 天无理由退款</li>
+        </ul>
+        <a href="https://app.rainyun.com/apps/rgs/buy/linmeng_" target="_self" class="product-btn">立即体验</a>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-icon pc-4">⚡</div>
+        <h3>CDN 加速</h3>
+        <p class="desc">全球节点分发，智能调度，免费 HTTPS，让网站访问飞起来</p>
+        <div class="product-price"><span class="cur">¥</span><span class="num">19</span><span class="unit">/月起</span></div>
+        <ul class="product-features">
+          <li>全球智能调度</li>
+          <li>免费 HTTPS</li>
+          <li>实时流量统计</li>
+          <li>防 CC 攻击</li>
+        </ul>
+        <a href="https://app.rainyun.com/apps/rcdn/buy/linmeng_" target="_self" class="product-btn">立即体验</a>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-icon pc-5">💾</div>
+        <h3>对象存储</h3>
+        <p class="desc">S3 兼容 API，海量弹性存储，适合图片、视频、备份等场景</p>
+        <div class="product-price"><span class="cur">¥</span><span class="num">10</span><span class="unit">/月起</span></div>
+        <ul class="product-features">
+          <li>S3 兼容 API</li>
+          <li>跨区域复制</li>
+          <li>生命周期管理</li>
+          <li>细粒度权限控制</li>
+        </ul>
+        <a href="https://app.rainyun.com/apps/ros/buy/linmeng_" target="_self" class="product-btn">立即体验</a>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-icon pc-6">🌐</div>
+        <h3>域名服务</h3>
+        <p class="desc">海量后缀，超低价格，DNS 解析免费送，注册管理一站式</p>
+        <div class="product-price"><span class="cur">¥</span><span class="num">8</span><span class="unit">/年起</span></div>
+        <ul class="product-features">
+          <li>数百种后缀可选</li>
+          <li>免费 DNS 解析</li>
+          <li>Whois 隐私保护</li>
+          <li>转入转出自由</li>
+        </ul>
+        <a href="https://app.rainyun.com/apps/domain/list/registration/linmeng_" target="_self" class="product-btn">立即体验</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== About ========== -->
+<section class="section about" id="about">
+  <div class="container about-grid">
+    <div class="about-text reveal">
+      <span class="section-tag">💡 关于雨云</span>
+      <h2>什么是雨云？</h2>
+      <p>雨云成立于 <span class="hi">2018 年</span>，是具有自主知识产权的 <span class="hi">国产云计算服务提供商</span>。雨云为广大用户提供简单易用、便宜实惠、可信赖的云产品，主营包括 <span class="hi">云服务器、裸金属物理机、虚拟主机、游戏云、对象存储、CDN 内容分发</span> 等广受好评的云服务产品。</p>
+      <p>雨云是国内为数不多的自主开发财务及产品系统的厂商，成立至今服务国内外数十万名客户，覆盖学生、开发者、初创团队与中大型企业，并以稳定性、透明定价和社区化运营在圈内口碑持续走高。</p>
+      <div class="about-quote">之所以叫"雨云"，正是我们的愿景：<b>润雨无声，希望云服务可以和雨一样滋润世界，让云计算为所有人可用。</b></div>
+    </div>
+    <div class="about-visual reveal">
+      <span class="deco"></span>
+      <img src="https://pan.kslinmeng.cn/view.php/8a8987998bc5d3ecd5e3bc98980da6ee.jpg" alt="雨云产品展示" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ========== Why / Features ========== -->
+<section class="section" id="why">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-tag">🤔 为什么是雨云</span>
+      <h2>不止于稳定，更在于易用</h2>
+      <p>很多云厂商操作复杂、同质化严重，技术像在象牙塔里。雨云认为，云应该为所有人服务——开放性与易用性，和稳定性同样重要。</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature reveal">
+        <div class="feature-ico">🎨</div>
+        <h3>美观易用的面板</h3>
+        <p>多年精心设计与迭代，打造出业界公认美观的云计算控制台，让所有人都能轻松选购和管理云计算资源。</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-ico">💰</div>
+        <h3>透明实惠的定价</h3>
+        <p>按月/按年灵活付费，无隐藏费用，新老用户同价。配合首月 5 折新人券，入门门槛低到一杯奶茶钱。</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-ico">↩️</div>
+        <h3>七天无理由退款</h3>
+        <p>行业领先的退款政策，7 天内不满意全额退还，让购买决策没有后顾之忧，真正把用户放在第一位。</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-ico">🎧</div>
+        <h3>7×24 专业客服</h3>
+        <p>高在线率的专业客服团队，工单 / QQ群 / Discord 多渠道响应，平均响应时间小于 10 分钟。</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-ico">🛡️</div>
+        <h3>企业级安全防护</h3>
+        <p>免费 DDoS 基础防护、CC 防御、Web 应用防火墙，自动备份与快照回滚，让业务稳如磐石。</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-ico">👥</div>
+        <h3>社区化运营</h3>
+        <p>万人交流群、官方百科、论坛共建，让用户参与到知识库编辑中，分享创意、互相帮助、共同成长。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Gallery ========== -->
+<section class="section gallery" id="gallery">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-tag">🖼️ 界面展示</span>
+      <h2>颜值与实力并存</h2>
+      <p>精心打磨的控制台与产品界面，所见即所得，让云上操作成为一种享受</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal" data-src="https://pan.kslinmeng.cn/down.php/9442b72f2c447a9b388acfcd33af8f37.png">
+        <span class="gallery-tag">封面 · 控制台总览</span>
+        <img src="https://pan.kslinmeng.cn/down.php/9442b72f2c447a9b388acfcd33af8f37.png" alt="雨云控制台总览" loading="lazy">
+      </div>
+      <div class="gallery-item reveal" data-src="https://pan.kslinmeng.cn/view.php/ffa12c0679b34f9eec65a13cc66af95c.png">
+        <span class="gallery-tag">产品管理</span>
+        <img src="https://pan.kslinmeng.cn/view.php/ffa12c0679b34f9eec65a13cc66af95c.png" alt="雨云产品管理界面" loading="lazy">
+      </div>
+      <div class="gallery-item reveal" data-src="https://pan.kslinmeng.cn/view.php/05cf0480ae2ce19ee7b987e2d2fb162a.png">
+        <span class="gallery-tag">实例详情</span>
+        <img src="https://pan.kslinmeng.cn/view.php/05cf0480ae2ce19ee7b987e2d2fb162a.png" alt="雨云实例详情界面" loading="lazy">
+      </div>
+      <div class="gallery-item reveal" data-src="https://pan.kslinmeng.cn/view.php/95e0d3d0bd7a88cc657299ed4db64507.png">
+        <span class="gallery-tag">监控面板</span>
+        <img src="https://pan.kslinmeng.cn/view.php/95e0d3d0bd7a88cc657299ed4db64507.png" alt="雨云监控面板界面" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Stats Band ========== -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="stats-band reveal">
+      <div class="stat-item"><div class="v">7<span class="plus">+</span></div><div class="l">年稳定运营</div></div>
+      <div class="stat-item"><div class="v">10<span class="plus">万+</span></div><div class="l">累计服务用户</div></div>
+      <div class="stat-item"><div class="v">99.9<span class="plus">%</span></div><div class="l">服务在线率</div></div>
+      <div class="stat-item"><div class="v">50<span class="plus">+</span></div><div class="l">全球节点覆盖</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Testimonials ========== -->
+<section class="section" style="padding-top:48px">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-tag">💬 用户评价</span>
+      <h2>十万用户的选择与信赖</h2>
+      <p>来自学生、开发者、企业用户的真实反馈，让口碑为自己代言</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p>"用了三年雨云的虚拟主机，从个人博客到小型电商都跑得很稳。面板是真好看，宝塔一键装，新手也能上手。客服响应也快，工单基本半小时内回复。"</p>
+        <div class="testi-user">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#2563eb,#06b6d4)">林</div>
+          <div><div class="testi-name">林同学</div><div class="testi-role">个人开发者 · 上海</div></div>
+        </div>
+      </div>
+      <div class="testi reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p>"游戏云开 MC 服是真的方便，模板一选 5 分钟就能和小伙伴开黑。延迟低、不卡顿，价格比同类便宜不少。新人券领了直接半价，学生党福音。"</p>
+        <div class="testi-user">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#10b981,#34d399)">陈</div>
+          <div><div class="testi-name">陈同学</div><div class="testi-role">MC 服主 · 广东</div></div>
+        </div>
+      </div>
+      <div class="testi reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p>"公司业务迁移到雨云云服务器大半年，BGP 多线访问稳定，快照备份很省心。最满意的是工单系统专业，技术问题能直达工程师，不像大厂只能找机器人。"</p>
+        <div class="testi-user">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#f59e0b,#fb923c)">王</div>
+          <div><div class="testi-name">王工</div><div class="testi-role">企业运维 · 北京</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FAQ ========== -->
+<section class="section" id="faq" style="background:linear-gradient(180deg,#fff,#f8fafc);border-top:1px solid var(--line)">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-tag">❓ 常见问题</span>
+      <h2>你想知道的，都在这里</h2>
+      <p>关于购买、使用、售后的高频问题汇总，注册前先看看</p>
+    </div>
+    <div class="faq-wrap">
+      <details class="faq reveal" open>
+        <summary>新人优惠怎么领取？<span class="ic">+</span></summary>
+        <div class="faq-body">通过本站优惠通道（AFF: linmeng_）点击"注册/登录"完成账号注册后，系统会自动发放首月 5 折券到您的账户，下单时勾选使用即可。优惠券仅限新用户首单使用，部分特价产品不可叠加。</div>
+      </details>
+      <details class="faq reveal">
+        <summary>支持哪些付款方式？<span class="ic">+</span></summary>
+        <div class="faq-body">雨云支持支付宝、微信、银行卡、PayPal 等多种支付方式，企业用户可申请对公转账与发票开具。所有订单均支持按月/按季/按年灵活续费，长期订阅享受额外折扣。</div>
+      </details>
+      <details class="faq reveal">
+        <summary>不满意可以退款吗？<span class="ic">+</span></summary>
+        <div class="faq-body">可以。雨云提供行业领先的 7 天无理由退款政策，云服务器、虚拟主机、游戏云等主力产品在开通 7 天内均可申请全额退款（已使用流量/时长按比例扣除的部分除外）。详情请参考官网退款政策或咨询客服。</div>
+      </details>
+      <details class="faq reveal">
+        <summary>服务器数据安全如何保障？<span class="ic">+</span></summary>
+        <div class="faq-body">所有产品默认提供免费 DDoS 基础防护与 CC 防御，云服务器支持快照与自动备份，可一键回滚。对象存储支持跨区域复制与版本控制。建议用户同时做好本地备份，多重保障业务数据安全。</div>
+      </details>
+      <details class="faq reveal">
+        <summary>本站链接为什么都带后缀？<span class="ic">+</span></summary>
+        <div class="faq-body">本站为雨云优惠推广站点，所有跳转至雨云官方的链接均带有 AFF 优惠通道后缀（linmeng_），通过此通道注册可享受首月 5 折新人优惠。雨云官方正式对外的域名是 <a href="https://www.rainyun.com/group/linmeng_" target="_self" style="color:var(--primary);font-weight:700">rainyun.com</a>，请认准官方域名以防钓鱼。</div>
+      </details>
+      <details class="faq reveal">
+        <summary>遇到技术问题怎么求助？<span class="ic">+</span></summary>
+        <div class="faq-body">雨云提供 7×24 小时多渠道技术支持：登录控制台提交工单（最推荐）、加入官方 QQ 交流群 / Discord 频道、查阅官方百科与论坛。普通工单平均响应时间小于 10 分钟，紧急故障优先处理。</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section class="section" style="padding-top:48px">
+  <div class="container">
+    <div class="cta reveal">
+      <h2>💎 开启你的云上之旅</h2>
+      <p>您正在使用 <strong>优惠通道</strong>，现在加入雨云立即领取 <strong>首月 5 折新人优惠</strong>，最低 ¥4/月即可拥有稳定高速的云服务。</p>
+      <div class="coupon">🎁 新人专享 · 首月 5 折券 · 全场通用</div>
+      <div class="cta-actions">
+        <a href="https://app.rainyun.com/linmeng_" target="_self" class="btn btn-white btn-lg">🚀 前往注册</a>
+        <a href="https://www.rainyun.com/group/linmeng_" target="_self" class="btn btn-amber btn-lg">👥 加入雨云社区</a>
+      </div>
+      <div class="cta-progress">
+        <div class="bar"><div class="fill"></div></div>
+        <div class="meta"><span>已领取 9644 张</span><span>仅剩 356 张</span></div>
+      </div>
+    </div>
+
+    <!-- AFF Notice -->
+    <div class="aff-notice reveal">
+      <div class="ico">ℹ️</div>
+      <p>本站的链接均带有 <strong>AFF（优惠通道）</strong>，雨云官方正式对外的域名是 <a href="https://www.rainyun.com/group/linmeng_" target="_self">rainyun.com</a>。通过本站通道注册可享受新人专属优惠，价格更实惠，欢迎分享给有需要的朋友。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Footer ========== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand"><span class="brand-logo">🌤️</span><span style="color:#fff">雨云 RainYun</span></div>
+        <p>润雨无声，希望云服务可以和雨一样滋润世界，让云计算为所有人可用。新一代以用户体验为优先的国产云服务提供商。</p>
+        <div class="footer-social">
+          <a href="https://www.rainyun.com/linmeng_" target="_self" title="官网">🌐</a>
+          <a href="https://app.rainyun.com/dashboard/linmeng_" target="_self" title="控制台">🖥️</a>
+          <a href="https://www.rainyun.com/jk/linmeng_" target="_self" title="库存监控">📊</a>
+          <a href="https://www.rainyun.com/group/linmeng_" target="_self" title="社区">👥</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>产品服务</h4>
+        <ul>
+          <li><a href="https://app.rainyun.com/apps/rvh/buy/linmeng_" target="_self">虚拟主机</a></li>
+          <li><a href="https://app.rainyun.com/apps/rcs/buy/linmeng_" target="_self">云服务器</a></li>
+          <li><a href="https://app.rainyun.com/apps/rgs/buy/linmeng_" target="_self">游戏云</a></li>
+          <li><a href="https://app.rainyun.com/apps/rcdn/buy/linmeng_" target="_self">CDN 加速</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>快捷入口</h4>
+        <ul>
+          <li><a href="https://www.rainyun.com/linmeng_" target="_self">首页</a></li>
+          <li><a href="https://app.rainyun.com/dashboard/linmeng_" target="_self">登录 / 注册</a></li>
+          <li><a href="https://www.rainyun.com/jk/linmeng_" target="_self">库存监控</a></li>
+          <li><a href="https://app.rainyun.com/apps/domain/list/registration/linmeng_" target="_self">域名注册</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>帮助支持</h4>
+        <ul>
+          <li><a href="https://www.rainyun.com/group/linmeng_" target="_self">官方社区</a></li>
+          <li><a href="#faq">常见问题</a></li>
+          <li><a href="https://app.rainyun.com/dashboard/linmeng_" target="_self">提交工单</a></li>
+          <li><a href="https://app.rainyun.com/apps/ros/buy/linmeng_" target="_self">对象存储</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2018–2026 雨云 RainYun · 本页为优惠推广站 (AFF: linmeng_)</div>
+      <div>官方域名 rainyun.com · 润雨无声，云润万物</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ========== Lightbox ========== -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">×</button>
+  <img id="lightboxImg" src="" alt="放大查看">
+</div>
+
+<!-- ========== Back to top ========== -->
+<button class="to-top" id="toTop" aria-label="返回顶部">↑</button>
+
+<script>
+// Mobile menu
+const menuToggle=document.getElementById('menuToggle');
+const navLinks=document.getElementById('navLinks');
+menuToggle.addEventListener('click',()=>navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+
+// Reveal on scroll
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Back to top
+const toTop=document.getElementById('toTop');
+window.addEventListener('scroll',()=>{toTop.classList.toggle('show',window.scrollY>500);});
+toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+// Lightbox
+const lightbox=document.getElementById('lightbox');
+const lightboxImg=document.getElementById('lightboxImg');
+const lightboxClose=document.getElementById('lightboxClose');
+document.querySelectorAll('.gallery-item').forEach(item=>{
+  item.addEventListener('click',()=>{
+    const src=item.dataset.src;
+    lightboxImg.src=src;
+    lightbox.classList.add('open');
+    document.body.style.overflow='hidden';
+  });
+});
+function closeLightbox(){lightbox.classList.remove('open');lightboxImg.src='';document.body.style.overflow='';}
+lightboxClose.addEventListener('click',closeLightbox);
+lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+
+// Animated counters for hero stats
+const nums=document.querySelectorAll('.hero-stat .num');
+const animateNum=(el)=>{
+  const txt=el.textContent;
+  const m=txt.match(/^([\d.]+)(.*)$/);
+  if(!m)return;
+  const target=parseFloat(m[1]);
+  const rest=m[2];
+  const isFloat=String(m[1]).includes('.');
+  let cur=0;const steps=40;let i=0;
+  const t=setInterval(()=>{
+    i++;cur=target*i/steps;
+    el.innerHTML=(isFloat?cur.toFixed(1):Math.round(cur))+rest.replace(/^<span[^>]*>|<\/span>$/g,'');
+    // preserve unit span
+    if(i>=steps){clearInterval(t);el.innerHTML=(isFloat?target.toFixed(1):target)+rest;}
+  },22);
+};
+// Simple version: just highlight without breaking spans
+const heroObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.animation='none';
+      e.target.offsetHeight;
+      e.target.style.transition='transform .4s';
+      heroObserver.unobserve(e.target);
+    }
+  });
+});
+</script>
+</body>
+</html>
